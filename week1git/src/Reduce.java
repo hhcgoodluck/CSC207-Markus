@@ -1,29 +1,41 @@
 public class Reduce {
 
-    // 计算将 n 减少到 0 所需的步骤数
-    public static int calculateSteps(int n) {
-        int steps = 0;
-        while (n > 0) {
-            if (n % 2 == 0) {
-                n /= 2;
-            } else {
-                n -= 1;
+    // 计算从 1 到 n 中能够被 100 整除的整数的个数
+    public static int countDivisibleBy100(int n) {
+        int count = 0;
+        for (int i = 1; i < n; i++) {
+            if (i % 100 == 0) {
+                count++;
             }
-            steps++;
         }
-        return steps;
+        return count;
     }
 
-    // main 方法，用于处理命令行参数和输出结果
+    // 默认主方法
+    public static int main() {
+        int n = 1000; // 默认值
+        return countDivisibleBy100(n);
+    }
+
+    // 参数化主方法
+    public static int main(int n) {
+        return countDivisibleBy100(n);
+    }
+
+    // 用于测试和输出结果的主方法
     public static void main(String[] args) {
-        if (args.length == 0) {
-            // 使用默认值调用 calculateSteps 并输出结果
-            System.out.println(calculateSteps(100));
+        if (args.length > 0) {
+            try {
+                int n = Integer.parseInt(args[0]);
+                System.out.println(main(n));
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please provide an integer.");
+            }
         } else {
-            int n = Integer.parseInt(args[0]);
-            System.out.println(calculateSteps(n));
+            System.out.println(main()); // 使用默认值
         }
     }
 }
+
 
 
