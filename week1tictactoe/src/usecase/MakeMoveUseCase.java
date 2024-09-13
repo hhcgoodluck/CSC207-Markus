@@ -16,7 +16,7 @@ public class MakeMoveUseCase implements MakeMoveInputBoundary {
         /*
         someone's been rearranging stuff. Try putting these fragments together:
         (row, col)
-        board.makeMove ..
+        board.makeMove ...
          */
         if (board.makeMove(row, col)) {
             char winner = board.checkWin();

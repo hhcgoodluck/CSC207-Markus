@@ -24,7 +24,7 @@ public class TextTTTGame {
             System.out.println("Player " + board.getCurrentPlayer() + ", enter your move by typing the row then a space then column number. Your options are 0, 1, or 2.");
 
             /*
-            scanner.nextInt()
+            scanner.nextInt()..
             */
             int row = scanner.nextInt();
             int col = scanner.nextInt();

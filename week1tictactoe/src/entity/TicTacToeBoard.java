@@ -29,7 +29,7 @@ public class TicTacToeBoard {
         This is from a long 1-line Boolean expression from inside the if. You'll need three pieces.
         Here are two:
 
-        row >= 0 && col >= 0 && row < 3 && col < 3 &&
+        row >= 0 && col >= 0 && row < 3 && col < 3 && ...
 
         You'll also need a clause to check whether board[row][col] is equal to '-'.
          */
