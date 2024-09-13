@@ -1,6 +1,6 @@
 public class Reduce {
-    // 计算将 n 减少到 0 的步骤数
-    public static int calculateSteps(int n) {
+
+    public static int reduceSteps(int n) {
         int steps = 0;
         while (n > 0) {
             if (n % 2 == 0) {
@@ -13,21 +13,15 @@ public class Reduce {
         return steps;
     }
 
-    // 处理命令行参数的 main 方法
+    // 带参数的 main 方法，调用 reduceSteps 并打印结果
     public static void main(String[] args) {
-
-        int defaultN = 100;
-
-        // 处理命令行参数
-        int n = defaultN;
-        if (args.length > 0) {
-            try {
-                n = Integer.parseInt(args[0]);
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid input. Using default value.");
-            }
+        if (args.length == 0) {
+            // 使用默认值调用 reduceSteps
+            System.out.println(reduceSteps(100));
+        } else {
+            int n = Integer.parseInt(args[0]);
+            System.out.println(reduceSteps(n));
         }
-
-        System.out.println(calculateSteps(n));
     }
 }
+
