@@ -57,16 +57,8 @@ public class BST {
             this.right = new BST(null); // 创建新的右子树
         } else if (item.compareTo(this.root) <= 0) {
             // 如果要插入的项小于或等于根节点，递归插入到左子树
-            if (this.left == null) {
-                this.left = new BST(null); // 初始化左子树
-            }
-            // 如果要插入的项小于或等于根节点，递归插入到左子树
             this.left.insert(item);
         } else {
-            // 如果要插入的项大于根节点，递归插入到右子树
-            if (this.right == null) {
-                this.right = new BST(null); // 初始化右子树
-            }
             // 如果要插入的项大于根节点，递归插入到右子树
             this.right.insert(item);
         }
@@ -98,14 +90,16 @@ public class BST {
             this.right = null;
         } else if (this.left.isEmpty()) {
             // 如果左子树为空，提升右子树
-            this.root = this.right.root;
-            this.left = this.right.left;
-            this.right = this.right.right;
+            BST carrier = this.right;
+            this.root = carrier.root;
+            this.left = carrier.left;
+            this.right = carrier.right;
         } else if (this.right.isEmpty()) {
             // 如果右子树为空，提升左子树
-            this.root = this.left.root;
-            this.right = this.left.right;
-            this.left = this.left.left;
+            BST carrier = this.left;
+            this.root = carrier.root;
+            this.right = carrier.right;
+            this.left = carrier.left;
         } else {
             // 两个子树都非空，从左子树提取最大值替换根
             this.root = this.left.extractMax();
@@ -117,10 +111,11 @@ public class BST {
         if (this.right.isEmpty()) {
             // 如果右子树为空，当前节点是最大值
             Integer maxItem = this.root;
+            BST tempLeft = this.left;
             // 记录最大值
-            this.root = this.left.root;
-            this.left = this.left.left;
-            this.right = this.left.right;
+            this.root = tempLeft.root;
+            this.left = tempLeft.left;
+            this.right = tempLeft.right;
             // 提升左子树
             return maxItem;
             // 返回最大值
