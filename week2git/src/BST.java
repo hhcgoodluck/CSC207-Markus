@@ -57,8 +57,16 @@ public class BST {
             this.right = new BST(null); // 创建新的右子树
         } else if (item.compareTo(this.root) <= 0) {
             // 如果要插入的项小于或等于根节点，递归插入到左子树
+            if (this.left == null) {
+                this.left = new BST(null); // 初始化左子树
+            }
+            // 如果要插入的项小于或等于根节点，递归插入到左子树
             this.left.insert(item);
         } else {
+            // 如果要插入的项大于根节点，递归插入到右子树
+            if (this.right == null) {
+                this.right = new BST(null); // 初始化右子树
+            }
             // 如果要插入的项大于根节点，递归插入到右子树
             this.right.insert(item);
         }
