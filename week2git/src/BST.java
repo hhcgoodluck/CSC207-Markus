@@ -7,7 +7,6 @@
  */
 public class BST {
     private Integer root;
-
     private BST left;
     private BST right;
 
@@ -28,11 +27,8 @@ public class BST {
     }
 
 
-    // TODO Task: Implement the BST methods.
-
     public boolean isEmpty() {
-        // TODO implement me!
-        return false;
+        return this.root == null;
     }
 
     public boolean contains(Integer item) {
@@ -54,37 +50,112 @@ public class BST {
 
 
     public void insert(Integer item) {
-        // TODO implement me!
+        if (this.isEmpty()) {
+            // 如果树为空，将根节点设为要插入的项
+            this.root = item;
+            this.left = new BST(); // 创建新的左子树
+            this.right = new BST(); // 创建新的右子树
+        } else if (item.compareTo(this.root) <= 0) {
+            // 如果要插入的项小于或等于根节点，递归插入到左子树
+            this.left.insert(item);
+        } else {
+            // 如果要插入的项大于根节点，递归插入到右子树
+            this.right.insert(item);
+        }
     }
 
 
     public void delete(Integer item) {
-        // TODO implement me!
+        if (this.isEmpty()) {
+            // 树为空
+            return;
+        } else if (item.equals(this.root)) {
+            // 当前节点是要删除的节点，调用 deleteRoot 方法
+            this.deleteRoot();
+        } else if (item.compareTo(this.root) < 0) {
+            // 要删除的节点小于根节点，递归到左子树
+            this.left.delete(item);
+        } else {
+            // 要删除的节点大于根节点，递归到右子树
+            this.right.delete(item);
+        }
     }
 
     private void deleteRoot() {
-        // TODO implement me!
+        // 前提条件 当前树非空
+        if (this.left.isEmpty() && this.right.isEmpty()) {
+            // 如果左右子树都为空，设置根为 null
+            this.root = null;
+            this.left = null;
+            this.right = null;
+        } else if (this.left.isEmpty()) {
+            // 如果左子树为空，提升右子树
+            this.root = this.right.root;
+            this.left = this.right.left;
+            this.right = this.right.right;
+        } else if (this.right.isEmpty()) {
+            // 如果右子树为空，提升左子树
+            this.root = this.left.root;
+            this.right = this.left.right;
+            this.left = this.left.left;
+        } else {
+            // 两个子树都非空，从左子树提取最大值替换根
+            this.root = this.left.extractMax();
+        }
     }
 
 
     private Integer extractMax() {
-        // TODO implement me!
-        return this.root; // dummy code; replace with correct code when you implement this.
+        if (this.right.isEmpty()) {
+            // 如果右子树为空，当前节点是最大值
+            Integer maxItem = this.root;
+            // 记录最大值
+            this.root = this.left.root;
+            this.left = this.left.left;
+            this.right = this.left.right;
+            // 提升左子树
+            return maxItem;
+            // 返回最大值
+        } else {
+            // 递归查找右子树的最大值
+            return this.right.extractMax();
+        }
     }
 
     public int height() {
-        // TODO implement me!
-        return 0; // dummy code; replace with correct code when you implement this.
+        if (this.isEmpty()) {
+            // 如果树为空，返回高度 0
+            return 0;
+        } else {
+            // 返回左右子树高度的最大值加 1
+            return Math.max(this.left.height(), this.right.height()) + 1;
+        }
     }
 
     public int count(Integer item) {
-        // TODO implement me!
-        return 0; // dummy code; replace with correct code when you implement this.
+        if (isEmpty()) {
+            // 检查树是否为空
+            return 0;
+        }else if (this.root > item) {
+            // 比较根节点值与待查找的 item
+            return this.left.count(item);
+            // 在左子树递归查找
+        } else if (this.root.equals(item)) {
+            // 计算当前节点并在左右子树递归查找
+            return 1 + this.left.count(item) + this.right.count(item);
+        } else {
+            // 在右子树递归查找
+            return this.right.count(item);
+        }
     }
 
     public int getLength() {
-        // TODO implement me!
-        return 0; // dummy code; replace with correct code when you implement this.
+        if (isEmpty()) {
+            // 检查树是否为空
+            return 0;
+        }
+            // 计算当前节点和左右子树的节点数
+        return 1 + left.getLength() + right.getLength();
     }
 
     public static void main(String[] args) {
@@ -96,7 +167,7 @@ public class BST {
         //            In particular, if you include any code on MarkUs which calls:
         //            new Integer(x); // for any x
         //            then your code won't be able to be compiled and run, with an error
-        //            similar to:
+        //.            similar to:
         //            "warning: [removal] Integer(int) in Integer has been deprecated and marked for removal"
     }
 
