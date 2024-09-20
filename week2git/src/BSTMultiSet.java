@@ -2,7 +2,7 @@ public class BSTMultiSet extends MultiSet {
 
     // a multiset always starts empty, so we can directly instantiate our private attribute
     // here; no need to explicitly write a new constructor.
-    private final BST bst = new BST();
+    private final BST bst = new BST(null);
 
     @Override
     void add(Integer item) {

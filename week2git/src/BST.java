@@ -11,17 +11,17 @@ public class BST {
     private BST right;
 
     public BST(Integer root) {
-        if (root != null) { // check to ensure we don't accidentally try to store null at the root!
+        if (root == null) {
+            this.root = null;
+            this.left = null;
+            this.right = null;
+        } else {
             this.root = root;
-            left = new BST();
-            right = new BST();
+            this.left = new BST(null);
+            this.right = new BST(null);
         }
-        // Note: each of the attributes will default to null if root == null
     }
 
-    /**
-     * Alternate constructor, so we don't have to explicitly pass in null.
-     */
     public BST() {
         this(null);
     }
@@ -53,8 +53,8 @@ public class BST {
         if (this.isEmpty()) {
             // 如果树为空，将根节点设为要插入的项
             this.root = item;
-            this.left = new BST(); // 创建新的左子树
-            this.right = new BST(); // 创建新的右子树
+            this.left = new BST(null); // 创建新的左子树
+            this.right = new BST(null); // 创建新的右子树
         } else if (item.compareTo(this.root) <= 0) {
             // 如果要插入的项小于或等于根节点，递归插入到左子树
             this.left.insert(item);
