@@ -3,7 +3,7 @@ package edu.csc207.fall2024;
 import java.util.List;
 
 /**
- * Class representing an invoice for a customer.
+ * Class representing  an invoice for a customer.
  */
 public class Invoice {
 
