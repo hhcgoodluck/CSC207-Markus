@@ -1,3 +1,4 @@
+bf25972 Task 3.2
 7008754 Task 3.1.2 fix public also
 e6d3d3b Task 3.1.2 fix public also
 cdae68d Task 3.1.1 fix the public

@@ -1,8 +1,8 @@
 package edu.csc207.fall2024;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class StatementData {
 
@@ -11,7 +11,19 @@ public class StatementData {
 
     public StatementData(Invoice invoice, Map<String, Play> plays) {
         this.invoice = invoice;
-        this.performanceDataList = invoice.getPerformances().stream().map(performance -> new PerformanceData(performance, plays.get(performance.getPlayID()))).collect(Collectors.toList());
+
+        List<PerformanceData> tempList = new ArrayList<>();
+        for (Performance performance : invoice.getPerformances()) {
+            PerformanceData performanceData = createPerformanceCalculator(plays, performance);
+            tempList.add(performanceData);
+        }
+        this.performanceDataList = tempList;
+    }
+
+    private static PerformanceData createPerformanceCalculator(Map<String, Play> plays, Performance performance) {
+        AbstractPerformanceCalculator calculator = AbstractPerformanceCalculator.
+                createPerformanceCalculator(performance, plays.get(performance.getPlayID()));
+        return new PerformanceData(performance, calculator.play);
     }
 
     public String getCustomer() {
