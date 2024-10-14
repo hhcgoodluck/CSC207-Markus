@@ -27,7 +27,7 @@ public class StatementPrinter {
         return renderPlainText(statementData);
     }
 
-    private String renderPlainText(StatementData statementData) {
+    public String renderPlainText(StatementData statementData) {
         String result = "Statement for " + statementData.getCustomer() + "\n";
         for (PerformanceData performanceData : statementData.getPerformances()) {
             // print line for this order
@@ -40,7 +40,7 @@ public class StatementPrinter {
         return result;
     }
 
-    private static String usd(int totalAmount) {
+    public static String usd(int totalAmount) {
         return NumberFormat.getCurrencyInstance(Locale.US).format(totalAmount / Constants.PERCENT_FACTOR);
     }
 
