@@ -8,7 +8,7 @@ import java.util.Map;
  * This class generates a statement for a given invoice of performances.
  */
 public class StatementPrinter {
-    private final StatementData statementData;
+    public final StatementData statementData;
     /**
      * Constructs a new StatementPrinter with the given invoice and plays.
      * @param invoice the invoice containing the performances
