@@ -9,16 +9,16 @@ public class PastoralCalculator extends AbstractPerformanceCalculator {
     @Override
     public int amountFor() {
         int result = Constants.PASTORAL_BASE_AMOUNT;
-        if (performance.getAudience() > Constants.PASTORAL_AUDIENCE_THRESHOLD) {
-            result += Constants.PASTORAL_OVER_BASE_CAPACITY_PER_PERSON * (performance.getAudience() - 20);
+        if (getPerformance().getAudience() > Constants.PASTORAL_AUDIENCE_THRESHOLD) {
+            result += Constants.PASTORAL_OVER_BASE_CAPACITY_PER_PERSON * (getPerformance().getAudience() - 20);
         }
         return result;
     }
 
     @Override
     public int volumeCredits() {
-        return Math.max(performance.getAudience() - Constants.PASTORAL_VOLUME_CREDIT_THRESHOLD, 0) +
-                performance.getAudience() / 2;
+        return Math.max(getPerformance().getAudience() - Constants.PASTORAL_VOLUME_CREDIT_THRESHOLD, 0)
+                + getPerformance().getAudience() / 2;
     }
 }
 

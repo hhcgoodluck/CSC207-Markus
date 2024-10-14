@@ -8,7 +8,9 @@ import java.util.Map;
  * This class generates a statement for a given invoice of performances.
  */
 public class StatementPrinter {
-    public final StatementData statementData;
+
+    private final StatementData statementData;
+
     /**
      * Constructs a new StatementPrinter with the given invoice and plays.
      * @param invoice the invoice containing the performances
@@ -24,10 +26,14 @@ public class StatementPrinter {
      * @throws RuntimeException if one of the play types is not known.
      */
     public String statement() {
-        return renderPlainText(statementData);
+        return renderPlainText();
     }
 
-    public String renderPlainText(StatementData statementData) {
+    /**
+     * Renders the statement in plain text format.
+     * @return the formatted plain text statement
+     */
+    public String renderPlainText() {
         String result = "Statement for " + statementData.getCustomer() + "\n";
         for (PerformanceData performanceData : statementData.getPerformances()) {
             // print line for this order
@@ -40,8 +46,16 @@ public class StatementPrinter {
         return result;
     }
 
+    /**
+     * Converts an amount to USD currency format.
+     * @param totalAmount the total amount in cents
+     * @return the formatted amount in USD
+     */
     public static String usd(int totalAmount) {
         return NumberFormat.getCurrencyInstance(Locale.US).format(totalAmount / Constants.PERCENT_FACTOR);
     }
 
+    public StatementData getStatementData() {
+        return statementData;
+    }
 }
