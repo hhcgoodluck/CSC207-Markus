@@ -31,20 +31,22 @@ public class StatementPrinter {
         int volumeCredits = 0;
         String result = "Statement for " + getInvoice().getCustomer() + "\n";
 
-        final NumberFormat frmt = NumberFormat.getCurrencyInstance(Locale.US);
-
         for (Performance performance : getInvoice().getPerformances()) {
 
             volumeCredits += volumeCreditsFor(performance);
 
             // print line for this order
             result += String.format("  %s: %s (%s seats)%n", getPlay(performance).getName(),
-                    frmt.format(getAmount(performance) / Constants.PERCENT_FACTOR), performance.getAudience());
+                    usd(getAmount(performance)), performance.getAudience());
             totalAmount += getAmount(performance);
         }
-        result += String.format("Amount owed is %s%n", frmt.format(totalAmount / Constants.PERCENT_FACTOR));
+        result += String.format("Amount owed is %s%n", usd(totalAmount));
         result += String.format("You earned %s credits\n", volumeCredits);
         return result;
+    }
+
+    private static String usd(int totalAmount) {
+        return NumberFormat.getCurrencyInstance(Locale.US).format(totalAmount / Constants.PERCENT_FACTOR);
     }
 
     private int volumeCreditsFor(Performance performance) {
