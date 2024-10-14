@@ -20,7 +20,7 @@ public class HTMLStatementPrinter extends StatementPrinter {
             result.append(String.format(" <tr><td>%s</td><td>%d</td><td>%s</td></tr>%n",
                     perfData.getName(),
                     perfData.getAudience(),
-                    usd(perfData.amountFor())));
+                    usd(perfData.getAmount())));
         }
 
         result.append("</table>").append(System.lineSeparator());

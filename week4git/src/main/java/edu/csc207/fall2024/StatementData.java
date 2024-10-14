@@ -14,16 +14,21 @@ public class StatementData {
 
         List<PerformanceData> tempList = new ArrayList<>();
         for (Performance performance : invoice.getPerformances()) {
-            PerformanceData performanceData = createPerformanceCalculator(plays, performance);
+            PerformanceData performanceData = createPerformanceData(performance, plays);
             tempList.add(performanceData);
         }
         this.performanceDataList = tempList;
     }
 
-    private static PerformanceData createPerformanceCalculator(Map<String, Play> plays, Performance performance) {
-        AbstractPerformanceCalculator calculator = AbstractPerformanceCalculator.
-                createPerformanceCalculator(performance, plays.get(performance.getPlayID()));
-        return new PerformanceData(performance, calculator.play);
+    private PerformanceData createPerformanceData(Performance performance, Map<String, Play> plays) {
+        Play play = plays.get(performance.getPlayID());
+        AbstractPerformanceCalculator calculator =
+                AbstractPerformanceCalculator.createPerformanceCalculator(performance, play);
+
+        int amount = calculator.amountFor();
+        int volumeCredits = calculator.volumeCredits();
+
+        return new PerformanceData(performance, play, amount, volumeCredits);
     }
 
     public String getCustomer() {
@@ -38,7 +43,7 @@ public class StatementData {
     public int totalAmount() {
         int totalAmount = 0;
         for (PerformanceData performance : performanceDataList) {
-            totalAmount += performance.amountFor();
+            totalAmount += performance.getAmount();
         }
         return totalAmount;
     }
@@ -46,7 +51,7 @@ public class StatementData {
     public int volumeCredits() {
         int volumeCredits = 0;
         for (PerformanceData performance : performanceDataList) {
-            volumeCredits += performance.volumeCredits(performance);
+            volumeCredits += performance.getVolumeCredits();
         }
         return volumeCredits;
     }

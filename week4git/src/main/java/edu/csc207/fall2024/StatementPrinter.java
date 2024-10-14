@@ -32,7 +32,7 @@ public class StatementPrinter {
         for (PerformanceData performanceData : statementData.getPerformances()) {
             // print line for this order
             result += String.format("  %s: %s (%s seats)%n", performanceData.getName(),
-                    usd(performanceData.amountFor()), performanceData.getAudience());
+                    usd(performanceData.getAmount()), performanceData.getAudience());
         }
 
         result += String.format("Amount owed is %s%n", usd(statementData.totalAmount()));
